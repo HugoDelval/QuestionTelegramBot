@@ -1,2 +1,4 @@
 token
 venv/
+.idea/
+polls.db
