@@ -110,8 +110,9 @@ def insert_or_update_voter(voter_id: int, voter_name: str):
 
 def vote_callback(bot, update):
     answer_id = update.callback_query.data
-    voter_name = update.callback_query.from_user.username
-    voter_id = update.callback_query.from_user.id
+    user = update.callback_query.from_user
+    voter_name = user.username or user.first_name
+    voter_id = user.id
     LOGGER.info("{} ({}) voted {}".format(voter_name, voter_id, answer_id))
     voter = insert_or_update_voter(voter_id, voter_name)
     try:
