@@ -24,7 +24,18 @@ class Answer(BaseModel):
     nb = IntegerField(default=0)
 
 
+class Voter(BaseModel):
+    id = IntegerField(primary_key=True)
+    name = TextField()
+
+
+class Vote(BaseModel):
+    answer = ForeignKeyField(Answer, backref='votes')
+    voter = ForeignKeyField(Voter, backref='votes')
+
+
 def create_db():
     db.connect()
-    db.create_tables([Poll, Answer])
+    db.create_tables([Poll, Answer, Vote, Voter])
     print("DB successfully created")
+
