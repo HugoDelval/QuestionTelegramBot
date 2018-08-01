@@ -5,6 +5,7 @@ from peewee import *
 
 
 db_name = os.getenv("DB_PATH", "polls.db")
+need_to_create_tables = not os.path.isfile(db_name)
 db = SqliteDatabase(db_name)
 
 
@@ -36,7 +37,11 @@ class Vote(BaseModel):
 
 
 def create_db():
-    db.connect()
-    db.create_tables([Poll, Answer, Vote, Voter])
-    print("DB successfully created")
+     db.connect()
+     db.create_tables([Poll, Answer, Vote, Voter])
+     print("DB successfully created")
+
+
+if need_to_create_tables:
+    create_db()
 
