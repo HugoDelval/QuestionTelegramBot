@@ -21,7 +21,7 @@ Salut {{name}},
 Lance une question en utilisant:
 {cmd}
 
-Utilise /aide à tout moment pour plus d'info.
+Utilise /help à tout moment pour plus d'info.
 
 Bisous
 """.format(cmd=QUESTION_CMD)
@@ -121,7 +121,7 @@ def vote_callback(bot, update):
                                 text="Je n'ai pas trouvé cette réponse dans ma BDD")
         return
     try:
-        vote = Vote.get(Vote.voter == voter and Vote.answer == answer)
+        vote = Vote.get((Vote.voter == voter) & (Vote.answer == answer))
         # Vote already exists, lets delete it
         vote.delete_instance()
         bot.answerCallbackQuery(callback_query_id=update.callback_query.id,
