@@ -10,9 +10,8 @@ RUN pip3 install -r requirements.txt && rm requirements.txt
 COPY model.py .
 COPY bot.py .
 
-USER poll
-
 VOLUME /tmp/db
 
-CMD python3 bot.py
+CMD chown -R poll:poll /tmp/db && \
+    su poll -c "python3 bot.py"
 

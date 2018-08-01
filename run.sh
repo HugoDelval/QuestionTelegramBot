@@ -1,4 +1,5 @@
 #!/bin/bash
 docker build -t poll .
-docker run -d --restart=unless-stopped --name poll -v $(pwd)/db:/tmp/db poll
+mkdir -p db
+docker run -d --restart=unless-stopped --env-file docker.env --name poll -v $(pwd)/db:/tmp/db poll
 
