@@ -1,9 +1,10 @@
 import uuid
+import os
 
 from peewee import *
 
 
-db_name = 'polls.db'
+db_name = os.getenv("DB_PATH", "polls.db")
 db = SqliteDatabase(db_name)
 
 
