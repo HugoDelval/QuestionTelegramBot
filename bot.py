@@ -52,7 +52,7 @@ def _reconstruct_args(args: [str], separator='"'):
 
 
 def generate_poll_message(poll: Poll, answers: [Answer]) -> str:
-    created_by = "Quel dilemne ! Aide-nous à choisir:"
+    created_by = "Quel dilemme ! Aide-nous à choisir :"
     question = poll.question
     answers_text = ""
     for a in answers:
