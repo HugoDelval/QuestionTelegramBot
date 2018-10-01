@@ -1,5 +1,7 @@
 FROM debian:stretch
 
+LABEL maintainer=<Hugo Delval>
+
 RUN apt-get update && apt-get install -y python3-pip
 
 RUN useradd poll
