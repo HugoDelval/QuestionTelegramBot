@@ -52,7 +52,6 @@ def _reconstruct_args(args: [str], separator='"'):
 
 
 def generate_poll_message(poll: Poll, answers: [Answer]) -> str:
-    created_by = "Quel dilemme ! Aide-nous à choisir :"
     question = poll.question
     answers_text = ""
     for a in answers:
@@ -61,7 +60,7 @@ def generate_poll_message(poll: Poll, answers: [Answer]) -> str:
         if votes:
             votes_str = " ({} 👍 : {})".format(len(votes), ", ".join([v.voter.name for v in votes]))
         answers_text += "- {}{}\n".format(a.answer, votes_str)
-    text = "{}\n\n*{}*\n\n{}".format(created_by, question, answers_text)
+    text = "{}\n\n{}".format(question, answers_text)
     reply_markup = telegram.InlineKeyboardMarkup([
         [telegram.InlineKeyboardButton(a.answer, callback_data=str(a.id))] for a in answers
     ])
@@ -73,8 +72,7 @@ def show_poll(poll: Poll, answers: [Answer], update: telegram.ext.Dispatcher, bo
     text, reply_markup = generate_poll_message(poll, answers)
     bot.sendMessage(chat_id=update.message.chat_id,
                     text=text,
-                    reply_markup=reply_markup,
-                    parse_mode=telegram.ParseMode.MARKDOWN)
+                    reply_markup=reply_markup)
 
 
 def start_callback(bot: telegram.Update, update: telegram.ext.Dispatcher):
@@ -141,7 +139,6 @@ def vote_callback(bot, update):
         chat_id=update.callback_query.message.chat.id,
         text=text,
         reply_markup=reply_markup,
-        parse_mode=telegram.ParseMode.MARKDOWN,
     )
 
 updater = Updater(token)
